@@ -19,6 +19,7 @@ channelbot = '502555286574202880' #rocade                       #Channel où le 
 channelref = '503155396920213507' #communication                #Channel de référence pour communiquer avec le bot
 channelweb = '502510555618344960' #nb-joueur
 channelhisto = '502789558656696321' #historique                 #Channel d'historique
+channela = '499854777803341834' #accueil                        #Channel ou le !vote fonctionne
 cRole = "Citoyens"                                                #cRole (Common Role) Défini le role lambda qui interagit avec le Bot
 textmp = "```Bonjour à toi, je suis Bobby, c'est moi qui gère la Rocade de Sandy Island.```\n\nComment m'utiliser : \n\n :one: Quand le serveur est complet tu dois m'envoyer le message : **!enter** via le channel spécial qui va te permettre de rejoindre la File d'attente. \n \n :two: Si tu étais sur le serveur mais que tu as crash ou time out tu peux m'envoyer : **!crash** via le channel spécial qui va te permettre de rejoindre la File d'attente **Prioritaire**.\n \n :three: Dès que tu as réussi à te connecter n'oublies surtout pas de m'envoyer : **!quit** via le channel spécial qui va permettre de libérer la File d'attente ! \n \n :warning: __**Tu ne dois pas essayer de te connecter si quelqu'un d'autre est numéro 1 de la File d'attente**__ :warning: \n \n ```Bonne journée à toi !```"
 URL = "http://37.187.158.139:30120/players.json"
@@ -94,6 +95,11 @@ async def on_message(message):
         for j in range(len(wlplayer)):
             await client.send_message(client.get_channel(channelbot),f"```{j+1}: {wlplayer[j]}```")
         return
+    
+    if "!vote" in message.content and channeltyping == channela :
+         await client.purge_from(client.get_channel(channela), limit=1, check=None, before=None, after=None, around=None)
+         await client.send_message(client.get_channel(channela),"Votez pour soutenir le serveur ! :Cutecat: \n https://gta.top-serveurs.net/sandy-island")
+         return
 
     if "!help" in message.content and cRole in role_names and channeltyping == channelref:
         if message.author == client.user:
