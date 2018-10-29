@@ -29,7 +29,7 @@ URL = "http://37.187.158.139:30120/players.json"
 async def on_ready():
     global nbplayer
     t = datetime.datetime.now()
-    await client.change_presence(status=discord.Status.dnd, game= discord.Game(name="la maintenance", type=3))
+    await client.change_presence(status=discord.Status.dnd, game= discord.Game(name="le péage (connecting...)", type=3))
     await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : Le BOT à bien démarré :grin:")
     print("Bobby is ready!")
    
@@ -157,9 +157,9 @@ async def on_message(message):
 
     if "!nbj" in message.content and channeltyping == channelweb:
         if nbplayer < nblimit :
-            await client.change_presence(status=discord.Status.dnd, game= discord.Game(name="la maintenance", type=3))
+            await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
             return
-        await client.change_presence(status=discord.Status.online, game= discord.Game(name="la maintenance", type=0))
+        await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
         return
         
     if "!mp" in message.content and nbplayer < 31:
