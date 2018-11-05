@@ -63,18 +63,18 @@ async def on_message(message):
         await client.send_message(client.get_channel(channelbot),f"```markdown\n# Etat de la rocade à : {t.hour}:{t.minute:02}```")
         
         if len(wlcrash) > 0 :
-            var2 = "\n- **Liste Prioritaire :**" 
+            var2 = "# Liste Prioritaire :" 
             for k in range(len(wlcrash)):
                 var = wlcrash[k]
-                var2 = var2 + f"\n{k+1} {var} P"
+                var2 = var2 + f"\n- {k+1} {var} P"
                 var22 = f"```{var2}```"
             await client.send_message(client.get_channel(channelbot),var22)
                                        
         if len(wlplayer) > 0 :
-            var3 = "\n- **Liste de Connexion :**" 
+            var3 = "# Liste de Connexion :" 
             for i in range(len(wlplayer)):
                 var = wlplayer[i]
-                var3 = var3 + f"\n{i+1} {var}"
+                var3 = var3 + f"\n- {i+1} {var}"
                 var33 = f"```{var3}```"
             await client.send_message(client.get_channel(channelbot),var33)
         return
