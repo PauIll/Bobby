@@ -67,7 +67,7 @@ async def on_message(message):
             for k in range(len(wlcrash)):
                 var = wlcrash[k]
                 var2 = var2 + f"\n- {k+1} {var} P"
-                var22 = f"```{var2}```"
+                var22 = f"```markdown\n{var2}```"
             await client.send_message(client.get_channel(channelbot),var22)
                                        
         if len(wlplayer) > 0 :
@@ -75,7 +75,7 @@ async def on_message(message):
             for i in range(len(wlplayer)):
                 var = wlplayer[i]
                 var3 = var3 + f"\n- {i+1} {var}"
-                var33 = f"```{var3}```"
+                var33 = f"```markdown\n{var3}```"
             await client.send_message(client.get_channel(channelbot),var33)
         return
     
