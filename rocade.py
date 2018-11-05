@@ -68,15 +68,15 @@ async def on_message(message):
                 var = wlcrash[k]
                 var2 = var2 + f"\n{k+1} {var} P"
                 var22 = f"```{var2}```"
-            await client.send_message(client.get_channel(channelbot),var2)
+            await client.send_message(client.get_channel(channelbot),var22)
                                        
         if len(wlplayer) > 0 :
             var3 = "\n- **Liste de Connexion :**" 
             for i in range(len(wlplayer)):
                 var = wlplayer[i]
-                var3 = var3 + f"\n```{i+1} {var}```"
+                var3 = var3 + f"\n{i+1} {var}"
                 var33 = f"```{var3}```"
-            await client.send_message(client.get_channel(channelbot),var3)
+            await client.send_message(client.get_channel(channelbot),var33)
         return
     
     if "!crash" in message.content and cRole in role_names and channeltyping == channelref:
