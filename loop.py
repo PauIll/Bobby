@@ -30,4 +30,4 @@ async def on_ready():
         time.sleep(45)
 
 
-client.run(os.getenv('TOKEN'))
+client.run(os.getenv('TOKEN2'))
