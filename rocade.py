@@ -174,8 +174,8 @@ async def on_message(message):
                 await client.send_message(wlcrashid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
                 return
             await client.send_message(wlplayerid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
-            print("oui")
             return
+        return
 
     if "!clear" in message.content and channeltyping == channelref :
         await client.purge_from(client.get_channel(channelbot), limit=100, check=None, before=None, after=None, around=None)
