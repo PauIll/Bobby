@@ -57,7 +57,7 @@ async def on_message(message):
         wlplayerid.append((message.author))
         print("oui")
         await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} est entré dans la rocade :white_check_mark: ")
-        await client.purge_from(client.get_channel(channelbot), limit=200, check=None, before=None, after=None, around=None)
+        await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
         await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
         t = datetime.datetime.now()
         await client.send_message(client.get_channel(channelbot),f"```markdown\n# Etat de la rocade à : {t.hour}:{t.minute:02}```")
@@ -88,7 +88,7 @@ async def on_message(message):
         if len(wlplayer) > 0 and len(wlcrash) == 1:
             await client.send_message(wlplayerid[0],f":warning: C'est désormais **{wlcrash[0]}** qui est prioritaire à cause de son crash, tu dois attendre qu'il se connecte :grin:")
 
-        await client.purge_from(client.get_channel(channelbot), limit=100, check=None, before=None, after=None, around=None)
+        await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
         await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
         t = datetime.datetime.now()
         await client.send_message(client.get_channel(channelbot),f"```markdown\n# Etat de la rocade à : {t.hour}:{t.minute:02}```")
@@ -134,7 +134,7 @@ async def on_message(message):
             wlplayerid.remove((message.author))
             await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :negative_squared_cross_mark:")
             
-        await client.purge_from(client.get_channel(channelbot), limit=100, check=None, before=None, after=None, around=None)
+        await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
         await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
         
         t = datetime.datetime.now()                     #Défini la variable de temps
@@ -143,6 +143,7 @@ async def on_message(message):
         
         if len(wlcrash) == 0 and len(wlplayer) == 0:
             await client.send_message(client.get_channel(channelbot)," *Personne n'est dans la rocade* :grin: ")
+            return
    
         if len(wlcrash) > 0 :
             var2 = "# Liste Prioritaire :\n" 
@@ -178,7 +179,7 @@ async def on_message(message):
         return
 
     if "!clear" in message.content and channeltyping == channelref :
-        await client.purge_from(client.get_channel(channelbot), limit=100, check=None, before=None, after=None, around=None)
+        await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
         await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
         await client.send_message(client.get_channel(channelbot),f"```markdown\n# Etat de la rocade à : {t.hour}:{t.minute:02}```")
         await client.send_message(client.get_channel(channelbot)," *Personne n'est dans la rocade* :grin: ")
@@ -189,20 +190,6 @@ async def on_message(message):
         del wlplayerid[:]
         return
         
-
-    if "!variablechange" in message.content and channeltyping == channelref :
-        var = re.findall(r'\d+',message.content)
-        nbplayer = var[0]
-        await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
-        await client.send_message(message.author,f"Le nombre de joueur en ligne est bien passé à {var[0]}")
-        print(var)
-        return
-
-    if channeltyping == channelref and "!nbjadmin" in message.content:
-        print(nbplayer)
-        await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
-        await client.send_message(message.author,f"Il y a **{long} joueur(s)** en ligne")
-        return
         
 
 client.run(os.getenv('TOKEN'))
