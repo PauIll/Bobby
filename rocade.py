@@ -169,7 +169,7 @@ async def on_message(message):
         await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
         return
         
-    if "!mp" in message.content and nbplayer < 31:
+    if "!mp" in message.content and nbplayer <= 31:
         if len(wlplayer) > 0 or len(wlcrash) > 0 :
             if len(wlcrash) > 0 :
                 await client.send_message(wlcrashid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
@@ -189,7 +189,5 @@ async def on_message(message):
         del wlplayer[:]
         del wlplayerid[:]
         return
-        
-        
 
 client.run(os.getenv('TOKEN'))
