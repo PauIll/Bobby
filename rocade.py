@@ -21,6 +21,7 @@ channelref = '503155396920213507' #communication                #Channel de réf
 channelweb = '502510555618344960' #nb-joueur
 channelhisto = '502789558656696321' #historique                 #Channel d'historique
 channela = '410420102161367040' #accueil                        #Channel ou le !vote fonctionne
+channelg = '410158685768253450' #général
 cRole = "Citoyens"                                                #cRole (Common Role) Défini le role lambda qui interagit avec le Bot
 textmp = "```markdown\n# Bonjour à toi, je suis Bobby, c'est moi qui gère la Rocade de Sandy Island.```\n\nComment m'utiliser : \n\n :one: Quand le serveur est complet tu dois m'envoyer le message : **!enter** via le channel spécial qui va te permettre de rejoindre la File d'attente. \n \n :two: Si tu étais sur le serveur mais que tu as crash ou time out tu peux m'envoyer : **!crash** via le channel spécial qui va te permettre de rejoindre la File d'attente **Prioritaire**.\n \n :three: Dès que tu as réussi à te connecter n'oublies surtout pas de m'envoyer : **!quit** via le channel spécial qui va permettre de libérer la File d'attente ! \n \n :warning: Vous ne pouvez vous connecter uniquement quand je vous le dis, tout **abus** sur l'utilisation de la rocade sera sévèrement **sanctionné**  :warning: \n \n ```Bonne journée à toi !```"
 URL = "http://37.187.158.139:30120/players.json"
@@ -50,6 +51,23 @@ async def on_message(message):
     t = datetime.datetime.now()
     var2 = ""
     var3 = ""
+    
+    if "!nbj" in message.content and channeltyping == channelweb:
+        if nbplayer < nblimit :
+            await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
+            return
+        await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
+        return
+        
+    if "!mp" in message.content and nbplayer <= 31:
+        if len(wlplayer) > 0 or len(wlcrash) > 0 :
+            if len(wlcrash) > 0 :
+                await client.send_message(wlcrashid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
+                return
+            await client.send_message(wlplayerid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
+            return
+        return    
+    
     
     if "!enter" in message.content and cRole in role_names and channeltyping == channelref:
         #if message.author.nick not in wlplayer:
@@ -109,19 +127,6 @@ async def on_message(message):
                 var33 = f"```markdown\n{var3}```"
             await client.send_message(client.get_channel(channelbot),var33)
         return
-    
-    if "!vote" in message.content and channeltyping == channela :
-         await client.purge_from(client.get_channel(channela), limit=1, check=None, before=None, after=None, around=None)
-         await client.send_message(client.get_channel(channela),"Votez pour soutenir le serveur ! :smiley_cat:  \n https://gta.top-serveurs.net/sandy-island")
-         await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a lancer le lien de vote ")
-         return
-
-    if "!help" in message.content and cRole in role_names and channeltyping == channelref:
-        if message.author == client.user:
-            return
-        await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
-        await client.send_message(message.author,textmp)
-        return
 
     if "!quit" in message.content and cRole in role_names and channeltyping == channelref:
         if message.author.nick in wlcrash:
@@ -161,22 +166,32 @@ async def on_message(message):
                 var33 = f"```markdown\n{var3}```"
             await client.send_message(client.get_channel(channelbot),var33)
         return
+    
+    if "!vote" in message.content and channeltyping == channela :
+         await client.purge_from(client.get_channel(channela), limit=1, check=None, before=None, after=None, around=None)
+         await client.send_message(client.get_channel(channela),"Votez pour soutenir le serveur ! :smiley_cat:  \n https://gta.top-serveurs.net/sandy-island")
+         await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a lancer le lien de vote ")
+         return
+    
+    if "!radio" in message.content and channeltyping == channelg :
+         await client.purge_from(client.get_channel(channelg), limit=1, check=None, before=None, after=None, around=None)
+         await client.send_message(client.get_channel(channelg),"La présence radio est obligatoire lorsque vous êtes présent en ville ! Le channel en ville est présent pour ne pas être dérangé. :grin: ")
+         await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a appelé la radio ")
+         return
+    
+    if "!service" in message.content and channeltyping == channelg :
+         await client.purge_from(client.get_channel(channelg), limit=1, check=None, before=None, after=None, around=None)
+         await client.send_message(client.get_channel(channelg),"Si vous occupez un métier de service et que vous êtes le seul en ville de disponible, merci de RESTER EN SERVICE ! #reglement :grin: ")
+         await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a appelé le service ")
+         return
 
-    if "!nbj" in message.content and channeltyping == channelweb:
-        if nbplayer < nblimit :
-            await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
+    if "!help" in message.content and cRole in role_names and channeltyping == channelref:
+        if message.author == client.user:
             return
-        await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
+        await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
+        await client.send_message(message.author,textmp)
         return
-        
-    if "!mp" in message.content and nbplayer <= 31:
-        if len(wlplayer) > 0 or len(wlcrash) > 0 :
-            if len(wlcrash) > 0 :
-                await client.send_message(wlcrashid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
-                return
-            await client.send_message(wlplayerid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
-            return
-        return
+
 
     if "!clear" in message.content and channeltyping == channelref :
         await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
