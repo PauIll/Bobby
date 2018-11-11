@@ -175,7 +175,7 @@ async def on_message(message):
     
     if "!radio" in message.content and channeltyping == channelg :
          await client.purge_from(client.get_channel(channelg), limit=1, check=None, before=None, after=None, around=None)
-         await client.send_message(client.get_channel(channelg),"La présence radio est obligatoire lorsque vous êtes présent en ville ! Le channel en ville est présent pour ne pas être dérangé. :grin: ")
+         await client.send_message(client.get_channel(channelg),"La présence radio est obligatoire lorsque vous êtes présent en ville ! Le channel «En ville» est présent pour ne pas être dérangé. :grin: ")
          await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a appelé la radio ")
          return
     
