@@ -1,2 +1,1 @@
-worker: python rocade.py and loop.py
-
+worker: python rocade.py
