@@ -32,47 +32,23 @@ async def on_ready():
     print("Bobby is ready!")
     
     while True :
-        if nbplayer < nblimit :
-            await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
-            client.send_message(await client.send_message(client.get_channel(channelweb),"!nbj1"))
-            await asyncio.sleep(40)
-        else :
-            await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
-            await asyncio.sleep(40)
-        
-        if nbplayer < nblimit :
-            await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
-            client.send_message(await client.send_message(client.get_channel(channelweb),"!nbj2"))
-            await asyncio.sleep(40)
-        else :
-            await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
-            await asyncio.sleep(40)
-        
-        if nbplayer < nblimit :
-            await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
-            client.send_message(await client.send_message(client.get_channel(channelweb),"!nbj3"))
-            await asyncio.sleep(40)
-        else :
-            await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
-            await asyncio.sleep(40)
-        
-        if nbplayer < nblimit :
-            await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
-            client.send_message(await client.send_message(client.get_channel(channelweb),"!nbj4"))
-            await asyncio.sleep(40)
-        else :
-            await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
-            await asyncio.sleep(40)
-        
+        for i in range(0,12):
+            if nbplayer < nblimit :
+                await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
+                client.send_message(await client.send_message(client.get_channel(channelweb),f"{i}"))
+                await asyncio.sleep(20)
+            else :
+                await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
+                await asyncio.sleep(20)
+
         if len(wlplayer) > 0 or len(wlcrash) > 0 :
             if len(wlcrash) > 0 :
                 await client.send_message(wlcrashid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
-                await asyncio.sleep(40)
+                await asyncio.sleep(20)
             else :
                 await client.send_message(wlplayerid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
-                await asyncio.sleep(40)
-        
-        
+                await asyncio.sleep(20)
+            
    
 @client.event
 async def on_message(message):
