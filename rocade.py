@@ -10,7 +10,7 @@ import os
 
 
 client = discord.Client()
-nbplayer = 32                                                    #Variable du nombre de joueurs connectés
+nbplayer = 18                                                   #Variable du nombre de joueurs connectés
 nblimit = 30
 wlplayer = []
 wlcrash = []
@@ -29,10 +29,50 @@ URL = "http://37.187.158.139:30120/players.json"
 @client.event
 async def on_ready():
     global nbplayer
-    t = datetime.datetime.now()
-    await client.change_presence(status=discord.Status.dnd, game= discord.Game(name="le péage (connecting...)", type=3))
-    await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : Le BOT à bien démarré :grin:")
     print("Bobby is ready!")
+    
+    while True :
+        if nbplayer < nblimit :
+            await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
+            client.send_message(await client.send_message(client.get_channel(channelweb),"!nbj1"))
+            await asyncio.sleep(40)
+        else :
+            await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
+            await asyncio.sleep(40)
+        
+        if nbplayer < nblimit :
+            await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
+            client.send_message(await client.send_message(client.get_channel(channelweb),"!nbj2"))
+            await asyncio.sleep(40)
+        else :
+            await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
+            await asyncio.sleep(40)
+        
+        if nbplayer < nblimit :
+            await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
+            client.send_message(await client.send_message(client.get_channel(channelweb),"!nbj3"))
+            await asyncio.sleep(40)
+        else :
+            await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
+            await asyncio.sleep(40)
+        
+        if nbplayer < nblimit :
+            await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
+            client.send_message(await client.send_message(client.get_channel(channelweb),"!nbj4"))
+            await asyncio.sleep(40)
+        else :
+            await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
+            await asyncio.sleep(40)
+        
+        if len(wlplayer) > 0 or len(wlcrash) > 0 :
+            if len(wlcrash) > 0 :
+                await client.send_message(wlcrashid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
+                await asyncio.sleep(40)
+            else :
+                await client.send_message(wlplayerid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
+                await asyncio.sleep(40)
+        
+        
    
 @client.event
 async def on_message(message):
@@ -50,23 +90,7 @@ async def on_message(message):
     name = message.author.nick
     t = datetime.datetime.now()
     var2 = ""
-    var3 = ""
-    
-    if "!nbj" in message.content and channeltyping == channelweb:
-        if nbplayer < nblimit :
-            await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
-            return
-        await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
-        return
-        
-    if "!mp" in message.content and nbplayer <= 31:
-        if len(wlplayer) > 0 or len(wlcrash) > 0 :
-            if len(wlcrash) > 0 :
-                await client.send_message(wlcrashid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
-                return
-            await client.send_message(wlplayerid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
-            return
-        return    
+    var3 = ""   
     
     
     if "!enter" in message.content and cRole in role_names and channeltyping == channelref:
@@ -205,4 +229,4 @@ async def on_message(message):
         del wlplayerid[:]
         return
 
-client.run(os.getenv('TOKEN'))
+client.run((os.getenv('TOKEN'))
