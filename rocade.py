@@ -229,4 +229,4 @@ async def on_message(message):
         del wlplayerid[:]
         return
 
-client.run((os.getenv('TOKEN'))
+client.run((os.getenv('TOKEN')))
