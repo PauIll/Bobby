@@ -137,7 +137,7 @@ async def on_message(message):
         if message.author.nick in wlplayer:
             wlplayer.remove((message.author.nick))
             wlplayerid.remove((message.author))
-            await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :negative_squared_cross_mark:")
+            await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :x:")
             
         await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
         await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
