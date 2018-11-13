@@ -56,7 +56,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     
-    role_names = [role.name for role in message.author.roles]   #Vérifie les roles d'un utilisateur
+    #role_names = [role.name for role in message.author.roles]   #Vérifie les roles d'un utilisateur
     channeltyping = message.channel.id                          #channel où est posté le message
     bot_status = discord.Status.idle                            #Initialise l'état du bot
     r = requests.get(url = URL)                                 #Récupère toutes les infos "joueur" du serveur FiveM
@@ -69,7 +69,7 @@ async def on_message(message):
     var3 = ""   
     
     
-    if "!enter" in message.content and cRole in role_names and channeltyping == channelref:
+    if "!enter" in message.content and channeltyping == channelref:
         #if message.author.nick not in wlplayer:
         wlplayer.append((message.author.nick))
         wlplayerid.append((message.author))
@@ -97,7 +97,7 @@ async def on_message(message):
             await client.send_message(client.get_channel(channelbot),var33)
         return
     
-    if "!crash" in message.content and cRole in role_names and channeltyping == channelref:
+    if "!crash" in message.content and channeltyping == channelref:
         #if message.author.nick not in wlcrash:
         wlcrash.append((message.author.nick))
         wlcrashid.append((message.author))
@@ -128,7 +128,7 @@ async def on_message(message):
             await client.send_message(client.get_channel(channelbot),var33)
         return
 
-    if "!quit" in message.content and cRole in role_names and channeltyping == channelref:
+    if "!quit" in message.content and channeltyping == channelref:
         if message.author.nick in wlcrash:
             wlcrash.remove((message.author.nick))
             wlcrashid.remove((message.author))
@@ -185,7 +185,7 @@ async def on_message(message):
          await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a appelé le service ")
          return
 
-    if "!help" in message.content and cRole in role_names and channeltyping == channelref:
+    if "!help" in message.content and channeltyping == channelref:
         if message.author == client.user:
             return
         await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
