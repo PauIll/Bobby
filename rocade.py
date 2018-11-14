@@ -33,6 +33,10 @@ async def on_ready():
     
     while True :
         for i in range(0,12):
+            r = requests.get(url = URL)                                 #Récupère toutes les infos "joueur" du serveur FiveM
+            data = r.json()                                             #On garde que les infos
+            long = len(data)                                            #Mise dans une liste des infos
+            nbplayer = long                                             #On Change la variable nbplayer par la taille de la liste
             if nbplayer < nblimit :
                 await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
                 client.send_message(await client.send_message(client.get_channel(channelweb),f"{i}"))
