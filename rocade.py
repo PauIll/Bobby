@@ -44,7 +44,10 @@ async def on_ready():
             else :
                 await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
                 await asyncio.sleep(20)
-
+        r = requests.get(url = URL)                                 #Récupère toutes les infos "joueur" du serveur FiveM
+        data = r.json()                                             #On garde que les infos
+        long = len(data)                                            #Mise dans une liste des infos
+        nbplayer = long  
         if len(wlplayer) > 0 or len(wlcrash) > 0 :
             if len(wlcrash) > 0 :
                 await client.send_message(wlcrashid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
