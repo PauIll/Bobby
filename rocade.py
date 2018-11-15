@@ -32,31 +32,35 @@ async def on_ready():
     print("Bobby is ready!")
     
     while True :
-        for i in range(0,6):
+        for i in range(0,9):
+            
             r = requests.get(url = URL)                                 #Récupère toutes les infos "joueur" du serveur FiveM
             data = r.json()                                             #On garde que les infos
             long = len(data)                                            #Mise dans une liste des infos
             nbplayer = long                                             #On Change la variable nbplayer par la taille de la liste
+            
             if nbplayer < nblimit :
                 await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
                 client.send_message(await client.send_message(client.get_channel(channelweb),f"{i}"))
-                await asyncio.sleep(40)
+                await asyncio.sleep(30)
             else :
                 await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
-                await asyncio.sleep(40)
+                await asyncio.sleep(30)
+                
         r = requests.get(url = URL)                                 #Récupère toutes les infos "joueur" du serveur FiveM
         data = r.json()                                             #On garde que les infos
         long = len(data)                                            #Mise dans une liste des infos
-        nbplayer = long  
+        nbplayer = long
+        
         if len(wlplayer) > 0 or len(wlcrash) > 0 :
             if len(wlcrash) > 0 :
                 await client.send_message(wlcrashid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
                 await client.send_message(await client.send_message(client.get_channel(channelweb),f"{wlcrash[0]} à reçu son mp"))
-                await asyncio.sleep(40)
+                await asyncio.sleep(30)
             else :
                 await client.send_message(wlplayerid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
                 await client.send_message(await client.send_message(client.get_channel(channelweb),f"{wlplayer[0]} à reçu son mp"))
-                await asyncio.sleep(40)
+                await asyncio.sleep(30)
             
    
 @client.event
