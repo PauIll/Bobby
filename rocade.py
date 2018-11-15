@@ -55,11 +55,11 @@ async def on_ready():
         if len(wlplayer) > 0 or len(wlcrash) > 0 :
             if len(wlcrash) > 0 :
                 await client.send_message(wlcrashid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
-                await client.send_message(await client.send_message(client.get_channel(channelweb),f"{wlcrash[0]} à reçu son mp"))
+                client.send_message(await client.send_message(client.get_channel(channelweb),f"{wlcrash[0]} à reçu son mp"))
                 await asyncio.sleep(30)
             else :
                 await client.send_message(wlplayerid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
-                await client.send_message(await client.send_message(client.get_channel(channelweb),f"{wlplayer[0]} à reçu son mp"))
+                client.send_message(await client.send_message(client.get_channel(channelweb),f"{wlplayer[0]} à reçu son mp"))
                 await asyncio.sleep(30)
             
    
