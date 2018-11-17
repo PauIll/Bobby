@@ -53,7 +53,7 @@ async def on_ready():
         long = len(data)                                            #Mise dans une liste des infos
         nbplayer = long
         
-        if nbplayer < nblimit :
+        if nbplayer < 32 :
             if len(wlplayer) > 0 or len(wlcrash) > 0 :
                 if len(wlcrash) > 0 :
                     await client.send_message(wlcrashid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
