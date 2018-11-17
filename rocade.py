@@ -11,7 +11,7 @@ import os
 
 client = discord.Client()
 nbplayer = 18                                                   #Variable du nombre de joueurs connectés
-nblimit = 30
+nblimit = 28
 wlplayer = []
 wlcrash = []
 wlplayerid = []
