@@ -90,7 +90,7 @@ async def on_ready():
                     await client.send_message(wlcrashid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
                     client.send_message(await client.send_message(client.get_channel(channelweb),f"{wlcrash[0]} à reçu son mp"))
                     compteur = compteur + 1
-                    if compteur = 3 :
+                    if compteur == 3 :
                         del wlcrash[0]
                         del wlcrashid[0]
                         await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
@@ -102,7 +102,7 @@ async def on_ready():
                     await client.send_message(wlplayerid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
                     client.send_message(await client.send_message(client.get_channel(channelweb),f"{wlplayer[0]} à reçu son mp"))
                     compteur = compteur + 1
-                    if compteur = 3 :
+                    if compteur == 3 :
                         del wlplayer[0]
                         del wlplayerid[0]
                         await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
