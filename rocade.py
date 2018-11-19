@@ -92,7 +92,7 @@ async def on_ready():
                     client.send_message(await client.send_message(client.get_channel(channelweb),f"{wlcrash[0]} à reçu son mp"))
                     compteur = compteur + 1
                     if compteur == 3 :
-                        await client.send_message(wlcrashid[0],":warning: Tu as déplacé le délai de connexion. Tu as été kick de la rocade, tu dois refaire un !enter")
+                        await client.send_message(wlcrashid[0],":warning: Tu as dépassé le délai de connexion. Tu as été kick de la rocade, tu dois refaire un !enter")
                         await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {wlcrash[0]} a été kick de la rocade :arrow_forward: ")
                         del wlcrash[0]
                         del wlcrashid[0]
@@ -106,7 +106,7 @@ async def on_ready():
                     client.send_message(await client.send_message(client.get_channel(channelweb),f"{wlplayer[0]} à reçu son mp"))
                     compteur = compteur + 1
                     if compteur == 3 :
-                        await client.send_message(wlplayerid[0],":warning: Tu as déplacé le délai de connexion. Tu as été kick de la rocade, tu dois refaire un !enter")
+                        await client.send_message(wlplayerid[0],":warning: Tu as dépassé le délai de connexion. Tu as été kick de la rocade, tu dois refaire un !enter")
                         await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {wlplayer[0]} a été kick de la rocade :arrow_forward: ")
                         del wlplayer[0]
                         del wlplayerid[0]
