@@ -27,10 +27,40 @@ cRole = "Citoyens"                                                #cRole (Common
 textmp = "```markdown\n# Bonjour à toi, je suis Bobby, c'est moi qui gère la Rocade de Sandy Island.```\n\nComment m'utiliser : \n\n :one: Quand le serveur est complet tu dois m'envoyer le message : **!enter** via le channel spécial qui va te permettre de rejoindre la File d'attente. \n \n :two: Si tu étais sur le serveur mais que tu as crash ou time out tu peux m'envoyer : **!crash** via le channel spécial qui va te permettre de rejoindre la File d'attente **Prioritaire**.\n \n :three: Dès que tu as réussi à te connecter n'oublies surtout pas de m'envoyer : **!quit** via le channel spécial qui va permettre de libérer la File d'attente ! \n \n :warning: Vous ne pouvez vous connecter uniquement quand je vous le dis, tout **abus** sur l'utilisation de la rocade sera sévèrement **sanctionné**  :warning: \n \n ```Bonne journée à toi !```"
 URL = "http://37.187.158.139:30120/players.json"
 
+
+async def printlist():
+    global nbplayer
+
+    t = datetime.datetime.now()
+    
+    await client.send_message(client.get_channel(channelbot),f"```markdown\n# Etat de la rocade à : {t.hour}:{t.minute:02}```")
+    
+    if len(wlcrash) > 0 :
+        var2 = "# Liste Prioritaire :\n" 
+        for k in range(len(wlcrash)):
+            var = wlcrash[k]
+            var2 = var2 + f"\n- {k+1} {var} P"
+            var22 = f"```markdown\n{var2}```"
+        await client.send_message(client.get_channel(channelbot),var22)
+                                       
+    if len(wlplayer) > 0 :
+        var3 = "# Liste de Connexion :\n" 
+        for i in range(len(wlplayer)):
+            var = wlplayer[i]
+            var3 = var3 + f"\n- {i+1} {var}"
+            var33 = f"```markdown\n{var3}```"
+        await client.send_message(client.get_channel(channelbot),var33)
+
+    if len(wlcrash) == 0 and len(wlplayer) == 0:
+            await client.send_message(client.get_channel(channelbot)," *Personne n'est dans la rocade* :grin: ")
+            return
+    return
+
 @client.event
 async def on_ready():
     global nbplayer
     print("Bobby is ready!")
+    compteur = 0
     
     while True :
         for i in range(0,5):
@@ -39,6 +69,7 @@ async def on_ready():
             data = r.json()                                             #On garde que les infos
             long = len(data)                                            #Mise dans une liste des infos
             nbplayer = long                                             #On Change la variable nbplayer par la taille de la liste
+           
             
             if nbplayer < nblimit :
                 await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
@@ -58,11 +89,25 @@ async def on_ready():
                 if len(wlcrash) > 0 :
                     await client.send_message(wlcrashid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
                     client.send_message(await client.send_message(client.get_channel(channelweb),f"{wlcrash[0]} à reçu son mp"))
+                    compteur = compteur + 1
+                    if compteur > 3 :
+                        del wlcrash[0]
+                        del wlcrashid[0]
+                        await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
+                        await printlist()
+                        compteur = 0
                     await asyncio.sleep(30)
 
                 else :
                     await client.send_message(wlplayerid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
-                    client.send_message(await client.send_message(client.get_channel(channelweb),f"{wlplayer[0]} à reçu son mp"))               
+                    client.send_message(await client.send_message(client.get_channel(channelweb),f"{wlplayer[0]} à reçu son mp"))
+                    compteur = compteur + 1
+                    if compteur > 3 :
+                        del wlplayer[0]
+                        del wlplayerid[0]
+                        await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
+                        await printlist()
+                        compteur = 0
                     await asyncio.sleep(30)
             
    
@@ -99,26 +144,13 @@ async def on_message(message):
             if nbplayer < 32 :
                 await client.send_message(wlplayerid[0],":wave: **Rappel** : Tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
             
-            await client.send_message(client.get_channel(channelbot),f"```markdown\n# Etat de la rocade à : {t.hour}:{t.minute:02}```")
-        
-            if len(wlcrash) > 0 :
-                var2 = "# Liste Prioritaire :\n" 
-                for k in range(len(wlcrash)):
-                    var = wlcrash[k]
-                    var2 = var2 + f"\n- {k+1} {var} P"
-                    var22 = f"```markdown\n{var2}```"
-                await client.send_message(client.get_channel(channelbot),var22)
-                                       
-            if len(wlplayer) > 0 :
-                var3 = "# Liste de Connexion :\n" 
-                for i in range(len(wlplayer)):
-                    var = wlplayer[i]
-                    var3 = var3 + f"\n- {i+1} {var}"
-                    var33 = f"```markdown\n{var3}```"
-                await client.send_message(client.get_channel(channelbot),var33)
+            await printlist()
             return
-        await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
-        return
+            
+        else :
+            await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
+            return
+       
     
     if "!crash" in message.content and channeltyping == channelref:
         if message.author.nick not in wlcrash:
@@ -134,24 +166,7 @@ async def on_message(message):
 
             await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
             await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
-            t = datetime.datetime.now()
-            await client.send_message(client.get_channel(channelbot),f"```markdown\n# Etat de la rocade à : {t.hour}:{t.minute:02}```")
-       
-            if len(wlcrash) > 0 :
-                var2 = "# Liste Prioritaire :\n" 
-                for k in range(len(wlcrash)):
-                    var = wlcrash[k]
-                    var2 = var2 + f"\n- {k+1} {var} P"
-                    var22 = f"```markdown\n{var2}```"
-                await client.send_message(client.get_channel(channelbot),var22)
-                                       
-            if len(wlplayer) > 0 :
-                var3 = "# Liste de Connexion :\n" 
-                for i in range(len(wlplayer)):
-                    var = wlplayer[i]
-                    var3 = var3 + f"\n- {i+1} {var}"
-                    var33 = f"```markdown\n{var3}```"
-                await client.send_message(client.get_channel(channelbot),var33)
+            await printlist()
             return
         await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
         return
@@ -169,30 +184,9 @@ async def on_message(message):
             
         await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
         await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
-        
-        t = datetime.datetime.now()                     #Défini la variable de temps
-        
-        await client.send_message(client.get_channel(channelbot),f"```markdown\n# Etat de la rocade à : {t.hour}:{t.minute:02}```")
-        
-        if len(wlcrash) == 0 and len(wlplayer) == 0:
-            await client.send_message(client.get_channel(channelbot)," *Personne n'est dans la rocade* :grin: ")
-            return
    
-        if len(wlcrash) > 0 :
-            var2 = "# Liste Prioritaire :\n" 
-            for k in range(len(wlcrash)):
-                var = wlcrash[k]
-                var2 = var2 + f"\n- {k+1} {var} P"
-                var22 = f"```markdown\n{var2}```"
-            await client.send_message(client.get_channel(channelbot),var22)
-                                       
-        if len(wlplayer) > 0 :
-            var3 = "# Liste de Connexion :\n" 
-            for i in range(len(wlplayer)):
-                var = wlplayer[i]
-                var3 = var3 + f"\n- {i+1} {var}"
-                var33 = f"```markdown\n{var3}```"
-            await client.send_message(client.get_channel(channelbot),var33)
+        await printlist()
+        compteur = 0
         return
     
     if "!vote" in message.content and channeltyping == channela :
@@ -232,5 +226,5 @@ async def on_message(message):
         del wlplayer[:]
         del wlplayerid[:]
         return
-    
+       
 client.run((os.getenv('TOKEN')))
