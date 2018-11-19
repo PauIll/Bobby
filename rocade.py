@@ -74,10 +74,10 @@ async def on_ready():
             if nbplayer < nblimit :
                 await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
                 client.send_message(await client.send_message(client.get_channel(channelweb),f"{i}"))
-                await asyncio.sleep(3)
+                await asyncio.sleep(30)
             else :
                 await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
-                await asyncio.sleep(3)
+                await asyncio.sleep(30)
                 
         r = requests.get(url = URL)                                 #Récupère toutes les infos "joueur" du serveur FiveM
         data = r.json()                                             #On garde que les infos
@@ -99,7 +99,7 @@ async def on_ready():
                         await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
                         await printlist()
                         compteur = 0
-                    await asyncio.sleep(3)
+                    await asyncio.sleep(30)
 
                 else :
                     await client.send_message(wlplayerid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
@@ -113,7 +113,7 @@ async def on_ready():
                         await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
                         await printlist()
                         compteur = 0
-                    await asyncio.sleep(3)
+                    await asyncio.sleep(30)
             
    
 @client.event
