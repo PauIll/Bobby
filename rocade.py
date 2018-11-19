@@ -74,15 +74,16 @@ async def on_ready():
             if nbplayer < nblimit :
                 await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
                 client.send_message(await client.send_message(client.get_channel(channelweb),f"{i}"))
-                await asyncio.sleep(30)
+                await asyncio.sleep(3)
             else :
                 await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
-                await asyncio.sleep(30)
+                await asyncio.sleep(3)
                 
         r = requests.get(url = URL)                                 #Récupère toutes les infos "joueur" du serveur FiveM
         data = r.json()                                             #On garde que les infos
         long = len(data)                                            #Mise dans une liste des infos
         nbplayer = long
+        t = datetime.datetime.now()
         
         if nbplayer < 32 :
             if len(wlplayer) > 0 or len(wlcrash) > 0 :
@@ -91,24 +92,28 @@ async def on_ready():
                     client.send_message(await client.send_message(client.get_channel(channelweb),f"{wlcrash[0]} à reçu son mp"))
                     compteur = compteur + 1
                     if compteur == 3 :
+                        await client.send_message(wlcrashid[0],":warning: Tu as déplacé le délai de connexion. Tu as été kick de la rocade, tu dois refaire un !enter")
+                        await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {wlcrash[0]} a été kick de la rocade :arrow_forward: ")
                         del wlcrash[0]
                         del wlcrashid[0]
                         await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
                         await printlist()
                         compteur = 0
-                    await asyncio.sleep(30)
+                    await asyncio.sleep(3)
 
                 else :
                     await client.send_message(wlplayerid[0],":wave: **Rappel** : Tu es premier de la File d'attente, tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
                     client.send_message(await client.send_message(client.get_channel(channelweb),f"{wlplayer[0]} à reçu son mp"))
                     compteur = compteur + 1
                     if compteur == 3 :
+                        await client.send_message(wlplayerid[0],":warning: Tu as déplacé le délai de connexion. Tu as été kick de la rocade, tu dois refaire un !enter")
+                        await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {wlplayer[0]} a été kick de la rocade :arrow_forward: ")
                         del wlplayer[0]
                         del wlplayerid[0]
                         await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
                         await printlist()
                         compteur = 0
-                    await asyncio.sleep(30)
+                    await asyncio.sleep(3)
             
    
 @client.event
@@ -226,5 +231,5 @@ async def on_message(message):
         del wlplayer[:]
         del wlplayerid[:]
         return
-       
+    
 client.run((os.getenv('TOKEN')))
