@@ -194,6 +194,34 @@ async def on_message(message):
         compteur = 0
         return
     
+    if message.content.startswith("!bbt"):
+        if channeltyping == channelo :
+            if "1" in message.content :
+                msgcp = await client.wait_for_message(author=message.author)
+                msgcp1 = msgcp.content
+                await client.send_message(client.get_channel(channela),msgcp1)
+                return
+            
+            if "2" in message.content :
+                msgcp = await client.wait_for_message(author=message.author)
+                msgcp2 = msgcp.content
+                await client.send_message(client.get_channel(channelg),msgcp2)
+                return
+
+    if "Bonne nuit" in message.content or "bonne nuit" in message.content or "Bonne Nuit" in message.content or "Bonne soirée" in message.content:
+        if channeltyping == channela :
+            x = "\U0001F4A4"
+            await client.add_reaction(message, x)
+            return
+        return
+    
+    if "Bonjour" in message.content or "salut" in message.content or "bonjour" in message.content or "Salut" in message.content:
+        if channeltyping == channela :
+            x = "\U0001F44B"
+            await client.add_reaction(message, x)
+            return
+        return
+    
     if "!vote" in message.content and channeltyping == channela :
          await client.purge_from(client.get_channel(channela), limit=1, check=None, before=None, after=None, around=None)
          await client.send_message(client.get_channel(channela),"Votez pour soutenir le serveur ! :smiley_cat:  \n https://gta.top-serveurs.net/sandy-island")
