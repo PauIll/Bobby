@@ -33,5 +33,5 @@ async def on_message(message):
         await client.send_message(message.channel,f"```markdown\n #{dclass} {delement} \n - 100: {delement1} \n - 150: {delement2}```")
 
 
-client.run(os.getenv('TOKEN'))
+client.run(os.getenv('TOKEN2'))
 
