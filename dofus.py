@@ -30,7 +30,7 @@ async def on_message(message):
         delement1 = random.choice(elementlist)
         elementlist.remove(delement1)
         delement2 = random.choice(elementlist)
-        await client.send_message(message.channel,f"{dclass} {delement}                100: {delement1}                150: {delement2}")
+        await client.send_message(message.channel,f"```markdown\n #{dclass} {delement} \n - 100: {delement1} \n - 150: {delement2}```")
 
 
 client.run(os.getenv('TOKEN'))
