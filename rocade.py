@@ -23,6 +23,7 @@ channelweb = '502510555618344960' #nb-joueur
 channelhisto = '512010805592588304' #historique                 #Channel d'historique
 channela = '410420102161367040' #accueil                        #Channel ou le !vote fonctionne
 channelg = '410158685768253450' #général
+channelo = '507120862831575040' #oui
 cRole = "Citoyens"                                                #cRole (Common Role) Défini le role lambda qui interagit avec le Bot
 textmp = "```markdown\n# Bonjour à toi, je suis Bobby, c'est moi qui gère la Rocade de Sandy Island.```\n\nComment m'utiliser : \n\n :one: Quand le serveur est complet tu dois m'envoyer le message : **!enter** via le channel spécial qui va te permettre de rejoindre la File d'attente. \n \n :two: Si tu étais sur le serveur mais que tu as crash ou time out tu peux m'envoyer : **!crash** via le channel spécial qui va te permettre de rejoindre la File d'attente **Prioritaire**.\n \n :three: Dès que tu as réussi à te connecter n'oublies surtout pas de m'envoyer : **!quit** via le channel spécial qui va permettre de libérer la File d'attente ! \n \n :warning: Vous ne pouvez vous connecter uniquement quand je vous le dis, tout **abus** sur l'utilisation de la rocade sera sévèrement **sanctionné**  :warning: \n \n ```Bonne journée à toi !```"
 URL = "http://37.187.158.139:30120/players.json"
