@@ -13,13 +13,15 @@ client = discord.Client()
 channela = '507498647911399434'
 channelp1 = '507120862831575040'
 channelp2 = '514735595063607308'
+channelp3 = '507534527745490959'
+channelp4 = '507879324100198410'
 channelalert1 = '514748410050641941'
 channelalert2 = '513090628075388958'
 
 @client.event
 async def on_ready() :
     print("Bot is ready")
-    await client.change_presence(status=discord.Status.online, game= discord.Game(name="cache à cache avec Gilbert Montagné", type=0))
+    await client.change_presence(status=discord.Status.online, game= discord.Game(name="les potins", type=2))
 
 @client.event
 async def on_member_join(member):
@@ -35,13 +37,20 @@ async def on_message(message):
 
     if channeltyping == channelalert1 :
         await client.send_message(client.get_channel(channelalert2), f"<@223971564570279938> est en live ! Rejoignez nous : https://www.twitch.tv/pollynette")
+
+    if channeltyping == channelp1 or channeltyping == channelp2 or channeltyping == channelp3 or channeltyping == channelp4 :
+        if message.content.startswith("http"):
+            return
     
-    if channeltyping == channelp1 or channeltyping == channelp2 :
+    if channeltyping == channelp1 or channeltyping == channelp2 or channeltyping == channelp3 or channeltyping == channelp4 :
         if oui != "" :
             nick = message.author.nick
+            if nick == None :
+                nick = message.author
             await client.purge_from(client.get_channel(channeltyping), limit=1, check=None, before=None, after=None, around=None)
             await client.send_message(message.author,f"Attention {nick} ce salon n'accepte que les photos ! :sun_with_face:")
             return
+        
 
     if "Bonne nuit" in message.content or "bonne nuit" in message.content or "Bonne Nuit" in message.content or "Bonne soirée" in message.content or "coucou" in message.content:
         if channeltyping == channela :
@@ -56,8 +65,5 @@ async def on_message(message):
             await client.add_reaction(message, x)
             return
         return
-    
-    
-
-    
+     
 client.run(os.getenv('TOKEN2'))
