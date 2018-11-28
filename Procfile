@@ -1,2 +1,2 @@
 worker: python rocade.py
-worker2: python dofus.py
+worker2: python powpow.py
