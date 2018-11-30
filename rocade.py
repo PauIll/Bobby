@@ -183,6 +183,9 @@ async def on_message(message):
         return
 
     if "!quit" in message.content and channeltyping == channelref:
+        name = message.author.nick
+        if name == None :
+            name = message.author
         if message.author.nick in wlcrash:
             wlcrash.remove((message.author.nick))
             wlcrashid.remove((message.author))
