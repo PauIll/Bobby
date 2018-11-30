@@ -141,7 +141,7 @@ async def on_message(message):
         if name == None :
             name = message.author
         if message.author.nick not in wlplayer:
-            wlplayer.append((message.author.nick))
+            wlplayer.append((name))
             wlplayerid.append((message.author))
             print("oui")
             await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} est entré dans la rocade :white_check_mark: ")
@@ -165,7 +165,7 @@ async def on_message(message):
         if name == None :
             name = message.author
         if message.author.nick not in wlcrash:
-            wlcrash.append((message.author.nick))
+            wlcrash.append((name))
             wlcrashid.append((message.author))
             await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} est entré dans la rocade (*Crash*) :warning:")
 
@@ -187,12 +187,12 @@ async def on_message(message):
         if name == None :
             name = message.author
         if message.author.nick in wlcrash:
-            wlcrash.remove((message.author.nick))
+            wlcrash.remove((name))
             wlcrashid.remove((message.author))
             await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :x:")
             
         if message.author.nick in wlplayer:
-            wlplayer.remove((message.author.nick))
+            wlplayer.remove((name))
             wlplayerid.remove((message.author))
             await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :x:")
             
