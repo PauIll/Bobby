@@ -186,12 +186,12 @@ async def on_message(message):
         name = message.author.nick
         if name == None :
             name = message.author
-        if message.author.nick in wlcrash:
+        if name in wlcrash:
             wlcrash.remove((name))
             wlcrashid.remove((message.author))
             await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :x:")
             
-        if message.author.nick in wlplayer:
+        if name in wlplayer:
             wlplayer.remove((name))
             wlplayerid.remove((message.author))
             await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :x:")
