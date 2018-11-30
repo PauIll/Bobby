@@ -131,13 +131,15 @@ async def on_message(message):
     data = r.json()                                             #On garde que les infos
     long = len(data)                                            #Mise dans une liste des infos
     nbplayer = long                                             #On Change la variable nbplayer par la taille de la liste
-    name = message.author.nick
     t = datetime.datetime.now()
     var2 = ""
     var3 = ""   
     
     
     if "!enter" in message.content and channeltyping == channelref:
+        name = message.author.nick
+        if name == None :
+            name = message.author
         if message.author.nick not in wlplayer:
             wlplayer.append((message.author.nick))
             wlplayerid.append((message.author))
@@ -159,6 +161,9 @@ async def on_message(message):
        
     
     if "!crash" in message.content and channeltyping == channelref:
+        name = message.author.nick
+        if name == None :
+            name = message.author
         if message.author.nick not in wlcrash:
             wlcrash.append((message.author.nick))
             wlcrashid.append((message.author))
