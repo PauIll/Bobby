@@ -134,6 +134,7 @@ async def on_message(message):
     t = datetime.datetime.now()
     var2 = ""
     var3 = ""  
+    name = message.author.nick
     if name == None :
         name = message.author
     
