@@ -52,14 +52,14 @@ async def on_message(message):
             return
         
 
-    if "Bonne nuit" in message.content or "bonne nuit" in message.content or "Bonne Nuit" in message.content or "Bonne soirée" in message.content or "coucou" in message.content:
+    if "Bonne nuit" in message.content or "bonne nuit" in message.content or "Bonne Nuit" in message.content or "Bonne soirée" in message.content :
         if channeltyping == channela :
             x = "\U0001F4A4"
             await client.add_reaction(message, x)
             return
         return
     
-    if "Bonjour" in message.content or "salut" in message.content or "bonjour" in message.content or "Salut" in message.content:
+    if "Bonjour" in message.content or "salut" in message.content or "bonjour" in message.content or "Salut" in message.content or "coucou" in message.content:
         if channeltyping == channela :
             x = "\U0001F31E"
             await client.add_reaction(message, x)
