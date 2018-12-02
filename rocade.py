@@ -133,11 +133,7 @@ async def on_message(message):
     nbplayer = long                                             #On Change la variable nbplayer par la taille de la liste
     t = datetime.datetime.now()
     var2 = ""
-    var3 = ""  
-    name = message.author.nick
-    if name == None :
-        name = message.author
-    
+    var3 = ""
     
     if "!enter" in message.content and channeltyping == channelref:
         name = message.author.nick
