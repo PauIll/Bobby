@@ -270,7 +270,7 @@ async def on_message(message):
 
     if "!clear" in message.content and channeltyping == channelref :
         name = message.author.nick
-         if name == None :
+        if name == None :
             name = message.author
         await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
         await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
