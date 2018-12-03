@@ -231,18 +231,27 @@ async def on_message(message):
         return
     
     if "!vote" in message.content and channeltyping == channela :
+         name = message.author.nick
+         if name == None :
+            name = message.author
          await client.purge_from(client.get_channel(channela), limit=1, check=None, before=None, after=None, around=None)
          await client.send_message(client.get_channel(channela),"Votez pour soutenir le serveur ! :smiley_cat:  \n https://gta.top-serveurs.net/sandy-island")
          await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a lancer le lien de vote ")
          return
     
     if "!radio" in message.content and channeltyping == channelg :
+         name = message.author.nick
+         if name == None :
+            name = message.author
          await client.purge_from(client.get_channel(channelg), limit=1, check=None, before=None, after=None, around=None)
          await client.send_message(client.get_channel(channelg),"La présence radio est obligatoire lorsque vous êtes présent en ville ! Le channel «En ville» est présent pour ne pas être dérangé. :grin: ")
          await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a appelé la radio ")
          return
     
     if "!service" in message.content and channeltyping == channelg :
+         name = message.author.nick
+         if name == None :
+            name = message.author
          await client.purge_from(client.get_channel(channelg), limit=1, check=None, before=None, after=None, around=None)
          await client.send_message(client.get_channel(channelg),"Si vous occupez un métier de service et que vous êtes le seul en ville de disponible, merci de RESTER EN SERVICE ! #reglement :grin: ")
          await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a appelé le service ")
@@ -251,12 +260,18 @@ async def on_message(message):
     if "!help" in message.content and channeltyping == channelref:
         if message.author == client.user:
             return
+        name = message.author.nick
+        if name == None :
+            name = message.author
         await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
         await client.send_message(message.author,textmp)
         return
 
 
     if "!clear" in message.content and channeltyping == channelref :
+        name = message.author.nick
+         if name == None :
+            name = message.author
         await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
         await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
         await client.send_message(client.get_channel(channelbot),f"```markdown\n# Etat de la rocade à : {t.hour}:{t.minute:02}```")
