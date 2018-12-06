@@ -189,13 +189,11 @@ async def on_message(message):
             wlcrash.remove((name))
             wlcrashid.remove((message.author))
             await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :x:")
-            await client.send_message(wlcrashid[0],":wave: **Rappel** : Tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
   
         if name in wlplayer:
             wlplayer.remove((name))
             wlplayerid.remove((message.author))
             await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :x:")
-            await client.send_message(wlcrashid[0],":wave: **Rappel** : Tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
     
         await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
         await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
