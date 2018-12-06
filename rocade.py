@@ -186,14 +186,18 @@ async def on_message(message):
         if name == None :
             name = message.author
         if name in wlcrash:
+            if len(wlcrashid) > 1 :
+                await client.send_message(wlcrashid[1],":wave: **Rappel** : Tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
             wlcrash.remove((name))
             wlcrashid.remove((message.author))
-            await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :x:")
+            client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :x:")
   
         if name in wlplayer:
+            if len(wlplayerid) > 1 :
+                await client.send_message(wlplayerid[1],":wave: **Rappel** : Tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
             wlplayer.remove((name))
             wlplayerid.remove((message.author))
-            await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :x:")
+            client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :x:")
     
         await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
         await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
