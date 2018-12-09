@@ -182,18 +182,23 @@ async def on_message(message):
         return
 
     if "!quit" in message.content and channeltyping == channelref:
+        r = requests.get(url = URL)                                 #Récupère toutes les infos "joueur" du serveur FiveM
+        data = r.json()                                             #On garde que les infos
+        long = len(data)                                            #Mise dans une liste des infos
+        nbplayer = long
+        t = datetime.datetime.now()
         name = message.author.nick
         if name == None :
             name = message.author
         if name in wlcrash:
-            if len(wlcrashid) > 1 :
+            if len(wlcrashid) > 1 and nbplayer < 31 :
                 await client.send_message(wlcrashid[1],":wave: **Rappel** : Tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
             wlcrash.remove((name))
             wlcrashid.remove((message.author))
             client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :x:")
   
         if name in wlplayer:
-            if len(wlplayerid) > 1 :
+            if len(wlplayerid) > 1 and nbplayer < 31 :
                 await client.send_message(wlplayerid[1],":wave: **Rappel** : Tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
             wlplayer.remove((name))
             wlplayerid.remove((message.author))
