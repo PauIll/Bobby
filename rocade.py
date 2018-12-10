@@ -6,6 +6,7 @@ import datetime
 import time
 import requests
 from threading import *
+import re
 import os
 
 
@@ -24,6 +25,7 @@ channelhisto = '512010805592588304' #historique                 #Channel d'histo
 channela = '410420102161367040' #accueil                        #Channel ou le !vote fonctionne
 channelg = '410158685768253450' #général
 channelo = '507120862831575040' #oui
+channelbotlog = '512010805592588304' #log-bobby
 cRole = "Citoyens"                                                #cRole (Common Role) Défini le role lambda qui interagit avec le Bot
 textmp = "```markdown\n# Bonjour à toi, je suis Bobby, c'est moi qui gère la Rocade de Sandy Island.```\n\nComment m'utiliser : \n\n :one: Quand le serveur est complet tu dois m'envoyer le message : **!enter** via le channel spécial qui va te permettre de rejoindre la File d'attente. \n \n :two: Si tu étais sur le serveur mais que tu as crash ou time out tu peux m'envoyer : **!crash** via le channel spécial qui va te permettre de rejoindre la File d'attente **Prioritaire**.\n \n :three: Dès que tu as réussi à te connecter n'oublies surtout pas de m'envoyer : **!quit** via le channel spécial qui va permettre de libérer la File d'attente ! \n \n :warning: Vous ne pouvez vous connecter uniquement quand je vous le dis, tout **abus** sur l'utilisation de la rocade sera sévèrement **sanctionné**  :warning: \n \n ```Bonne journée à toi !```"
 URL = "http://37.187.158.139:30120/players.json"
@@ -195,14 +197,14 @@ async def on_message(message):
                 await client.send_message(wlcrashid[1],":wave: **Rappel** : Tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
             wlcrash.remove((name))
             wlcrashid.remove((message.author))
-            client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :x:")
+            await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :x:")
   
         if name in wlplayer:
             if len(wlplayerid) > 1 and nbplayer < 31 :
                 await client.send_message(wlplayerid[1],":wave: **Rappel** : Tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
             wlplayer.remove((name))
             wlplayerid.remove((message.author))
-            client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :x:")
+            await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a quitté la rocade :x:")
     
         await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
         await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
@@ -238,7 +240,44 @@ async def on_message(message):
             await client.add_reaction(message, x)
             return
         return
-    
+
+    if "!kick c" in message.content and channeltyping == channelbotlog :
+        name = message.author.nick
+        if name == None :
+            name = message.author
+        var = re.findall(r'\d+',message.content)
+        print(var)
+        kick = var[0]
+        kick = int(kick)
+        print(kick)
+        kick = kick - 1
+        await client.purge_from(client.get_channel(channelbotlog), limit=1, check=None, before=None, after=None, around=None)
+        await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
+        await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a kick {wlplayer[kick]} :rage:")
+        await client.send_message(wlplayerid[kick],"Tu as été kick de la rocade par un admin :rage:")
+        del wlplayer[kick]
+        del wlplayerid[kick]
+        await printlist()
+        return
+
+    if "!kick p" in message.content and channeltyping == channelbotlog :
+        name = message.author.nick
+        if name == None :
+            name = message.author
+        var = re.findall(r'\d+',message.content)
+        kick = var[0]
+        kick = int(kick)
+        kick = kick - 1
+        await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
+        await client.purge_from(client.get_channel(channelbotlog), limit=1, check=None, before=None, after=None, around=None)
+        await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} a kick {wlcrash[kick]} :rage:")
+        await client.send_message(wlcrashid[kick],"Tu as été kick de la rocade par un admin :rage:")
+        del wlcrash[kick]
+        del wlcrashid[kick]
+        await printlist()
+        return
+
+
     if "!vote" in message.content and channeltyping == channela :
          name = message.author.nick
          if name == None :
