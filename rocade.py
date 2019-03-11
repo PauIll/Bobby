@@ -155,7 +155,6 @@ async def on_message(message):
         if message.author.nick not in wlplayer:
             wlplayer.append((name))
             wlplayerid.append((message.author))
-            print("oui")
             await client.send_message(client.get_channel(channelhisto),f"**{t.hour+1}:{t.minute:02}** : {name} est entré dans la rocade :white_check_mark: ")
             await client.purge_from(client.get_channel(channelbot), limit=10, check=None, before=None, after=None, around=None)
             await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
