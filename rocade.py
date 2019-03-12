@@ -84,7 +84,6 @@ async def on_ready():
                 await client.change_presence(status=discord.Status.dnd, game= discord.Game(name=f"le péage ({nbplayer} joueurs)", type=3))
                 client.send_message(await client.send_message(client.get_channel(channelweb),f"{i}"))
                 await asyncio.sleep(3)
-                print(compteur)
             else :
                 await client.change_presence(status=discord.Status.online, game= discord.Game(name=f"gérer la Rocade ({nbplayer} joueurs)", type=0))
                 await asyncio.sleep(3)
