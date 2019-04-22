@@ -19,17 +19,17 @@ wlplayer = []
 wlcrash = []
 wlplayerid = []
 wlcrashid = []
-channelbot = '502555286574202880' #rocade                       #Channel où le bot affiche les listes
-channelref = '503155396920213507' #communication                #Channel de référence pour communiquer avec le bot
+channelbot = '569900898180923396' #rocade                       #Channel où le bot affiche les listes
+channelref = '569900867105587221' #communication                #Channel de référence pour communiquer avec le bot
 channelweb = '502510555618344960' #nb-joueur
-channelhisto = '512010805592588304' #historique                 #Channel d'historique
-channela = '410420102161367040' #accueil                        #Channel ou le !vote fonctionne
-channelg = '410158685768253450' #général
+channelhisto = '569901853815341067' #historique                 #Channel d'historique
+channela = '554490520513019906' #accueil                        #Channel ou le !vote fonctionne
+channelg = '568457642469752853' #général
 channelo = '507120862831575040' #oui
-channelbotlog = '512010805592588304' #log-bobby
+channelbotlog = '569901853815341067' #log-bobby
 cRole = "Citoyens"                                                #cRole (Common Role) Défini le role lambda qui interagit avec le Bot
 textmp = "```markdown\n# Bonjour à toi, je suis Bobby, c'est moi qui gère la Rocade de Sandy Island.```\n\nComment m'utiliser : \n\n :one: Quand le serveur est complet tu dois m'envoyer le message : **!enter** via le channel spécial qui va te permettre de rejoindre la File d'attente. \n \n :two: Si tu étais sur le serveur mais que tu as crash ou time out tu peux m'envoyer : **!crash** via le channel spécial qui va te permettre de rejoindre la File d'attente **Prioritaire**.\n \n :three: Dès que tu as réussi à te connecter n'oublies surtout pas de m'envoyer : **!quit** via le channel spécial qui va permettre de libérer la File d'attente ! \n \n :warning: Vous ne pouvez vous connecter uniquement quand je vous le dis, tout **abus** sur l'utilisation de la rocade sera sévèrement **sanctionné**  :warning: \n \n ```Bonne journée à toi !```"
-URL = "http://37.187.158.139:30120/players.json"
+URL = "http://91.121.110.73:30122/players.json"
 compteur = 0
 gif = ['https://media.giphy.com/media/nb2kpw24iY8M0/giphy.gif','https://media.giphy.com/media/v3sPWJC4RmUgw/giphy.gif','https://tenor.com/We5F.gif','https://tenor.com/umXD.gif','https://tenor.com/RaNa.gif','https://gph.is/2chfxc6','https://gph.is/1vH0L1F','https://media.giphy.com/media/PMExYDVqIZ4RQigOZZ/giphy.gif','https://media.giphy.com/media/13Se61e5mhBwNW/giphy.gif','https://media.giphy.com/media/UNXI76SJ889A4/giphy.gif','https://media.giphy.com/media/HMSLfCl5BsXoQ/giphy.gif','https://media.giphy.com/media/e5s9AhceLnmfe/giphy.gif','https://media.giphy.com/media/xkCK3tAhDSUBa/giphy.gif','https://media.giphy.com/media/a34HjLEsKchWM/giphy.gif','https://media.giphy.com/media/ZlCsLIEg0okec/giphy.gif','https://media.giphy.com/media/TA0C7JvngEkr6/giphy.gif','https://media.giphy.com/media/quO0X65yj6gw0/giphy.gif','https://media.giphy.com/media/6y0KtNGlTyBRcj8GIy/giphy.gif','https://media.giphy.com/media/Ix9b4S1PPRkWY/giphy.gif']
 
@@ -288,14 +288,14 @@ async def on_message(message):
         return
 
 
-    if "!vote" in message.content and channeltyping == channela :
-         name = message.author.nick
-         if name == None :
-            name = message.author
-         await client.purge_from(client.get_channel(channela), limit=1, check=None, before=None, after=None, around=None)
-         await client.send_message(client.get_channel(channela),"Votez pour soutenir le serveur ! :smiley_cat:  \n https://gta.top-serveurs.net/sandy-island")
-         await client.send_message(client.get_channel(channelhisto),f"**{t.hour+1}:{t.minute:02}** : {name} a lancer le lien de vote ")
-         return
+ #   if "!vote" in message.content and channeltyping == channela :
+ #        name = message.author.nick
+ #        if name == None :
+  #          name = message.author
+  #       await client.purge_from(client.get_channel(channela), limit=1, check=None, before=None, after=None, around=None)
+  #       await client.send_message(client.get_channel(channela),"Votez pour soutenir le serveur ! :smiley_cat:  \n https://gta.top-serveurs.net/sandy-island")
+   #      await client.send_message(client.get_channel(channelhisto),f"**{t.hour+1}:{t.minute:02}** : {name} a lancer le lien de vote ")
+   #      return
     
     if "!radio" in message.content and channeltyping == channelg :
          name = message.author.nick
