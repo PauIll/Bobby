@@ -288,14 +288,14 @@ async def on_message(message):
         return
 
 
- #   if "!vote" in message.content and channeltyping == channela :
- #        name = message.author.nick
- #        if name == None :
-  #          name = message.author
-  #       await client.purge_from(client.get_channel(channela), limit=1, check=None, before=None, after=None, around=None)
-  #       await client.send_message(client.get_channel(channela),"Votez pour soutenir le serveur ! :smiley_cat:  \n https://gta.top-serveurs.net/sandy-island")
-   #      await client.send_message(client.get_channel(channelhisto),f"**{t.hour+1}:{t.minute:02}** : {name} a lancer le lien de vote ")
-   #      return
+    if "!vote" in message.content and channeltyping == channela :
+         name = message.author.nick
+         if name == None :
+            name = message.author
+         await client.purge_from(client.get_channel(channela), limit=1, check=None, before=None, after=None, around=None)
+         await client.send_message(client.get_channel(channela),"Votez pour soutenir le serveur ! :smiley_cat:  \n https://gta.top-serveurs.net/nostra-island")
+         await client.send_message(client.get_channel(channelhisto),f"**{t.hour+1}:{t.minute:02}** : {name} a lancer le lien de vote ")
+         return
     
     if "!radio" in message.content and channeltyping == channelg :
          name = message.author.nick
