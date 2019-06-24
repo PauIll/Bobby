@@ -94,7 +94,7 @@ async def on_ready():
         nbplayer = long
         t = datetime.datetime.now()
         
-        if nbplayer < 32 :
+        if nbplayer < 64 :
             if len(wlplayer) > 0 or len(wlcrash) > 0 :
                 if len(wlcrash) > 0 :
                     secure_random = random.SystemRandom()
@@ -159,7 +159,7 @@ async def on_message(message):
             await client.purge_from(client.get_channel(channelref), limit=1, check=None, before=None, after=None, around=None)
             t = datetime.datetime.now()
         
-            if nbplayer < 32 :
+            if nbplayer < 64 :
                 await client.send_message(wlplayerid[0],":wave: **Rappel** : Tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
             
             await printlist()
@@ -179,7 +179,7 @@ async def on_message(message):
             wlcrashid.append((message.author))
             await client.send_message(client.get_channel(channelhisto),f"**{t.hour}:{t.minute:02}** : {name} est entré dans la rocade (*Crash*) :warning:")
 
-            if nbplayer < 32 :
+            if nbplayer < 64 :
                 await client.send_message(wlcrashid[0],":wave: **Rappel** : Tu peux te connecter ! Penses à envoyer un **!quit** dès que tu es connecté ! Merci bien :grin:")
         
             if len(wlplayer) > 0 and len(wlcrash) == 1:
